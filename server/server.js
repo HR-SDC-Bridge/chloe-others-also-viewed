@@ -5,6 +5,9 @@ const morgan = require('morgan');
 const cors = require('cors');
 const db = require('./database/database.js');
 const getSimilarItemsByViews = require('./database/methods.js');
+const createRecord = require('./database/methods.js');
+const updateRecord = require('./database/methods.js');
+const deleteRecord = require('./database/methods.js');
 const path = require('path');
 
 app.use(morgan('dev'));
@@ -23,15 +26,35 @@ app.get('/similar-products-by-views/:id', (req, res) => {
     .catch((err) => console.error('Unable to get similar items by views: ', err));
 });
 
-/*
-Create / POST - create a new item:
-  Create new records in the db (Client needs to provide an array of ID's for the similar_items field. DB should auto increment the id field.)
-Read / GET - read an item:
-  DONE - /similar-products-by-views/:id
-Update / PUT - update an item:
-  Update existing records in the db (Client needs to provide the id it wants to update and an array of ID's to update the document with)
-Delete / DELETE - delete an item:
-  Delete existing record (Client needs to provide the id it wants to delete - possibly allow client to send an array of id's if it wants to delete multiple at a time)
- */
+app.post('/similar-products-by-views/:data', (req, res) => {
+  createRecord(req.params.data)
+    .then((result) => {
+      res.send('Success');
+    })
+    .catch((err) => {
+      console.log('Error calling createRecord: ', err);
+    });
+});
+
+app.put('/similar-products-by-views/:id/:data', (req, res) => {
+  updateRecord(req.params.id, req.params.data)
+    .then((result) => {
+      res.send('Success');
+    })
+    .catch((err) => {
+      console.log('Error calling updateRecord: ', err);
+    });
+});
+
+app.delete('/similar-products-by-views/:id', (req, res) => {
+  deleteRecord(req.params.id)
+    .then((result) => {
+      res.send('Success');
+    })
+    .catch((err) => {
+      console.log('Error calling deleteRecord: ', err);
+    });
+});
+
 
 module.exports = app;
