@@ -15,15 +15,20 @@ const getSimilarItemsByViews = Promise.promisify(
   }
 );
 
-// const createRecord = (data) => {
-//   models.similar_items_by_views.find().sort({id: -1}).limit(1)
-//     .then((maxID) => {
-//       models.insertOne({id: maxID + 1, similar_items: data});
-//     })
-//     .catch((err) => {
-//       console.log('Error creating record: ', err);
-//     });
-// };
+const createRecord = Promise.promisify(
+  (query, callback) => {
+    models.similar_items_by_views.find({}).sort({id: -1}).limit(1)
+      .then((res) => {
+        let newID = res[0].id + 1;
+        models.similar_items_by_views.create({id: newID, similar_items: query});
+        return callback(null, res);
+      })
+      .catch((err) => {
+        console.log(`Error finding maximum id: ${err}`);
+        return callback(err);
+      });
+  }
+);
 
 // const updateRecord = (id, data) => {
 //   models.similar_items_by_views.findOneAndUpdate({id: id}, {$set: { similar_items: data}})
@@ -32,19 +37,19 @@ const getSimilarItemsByViews = Promise.promisify(
 //     });
 // };
 
-const deleteRecord = Promise.promisify(
-  (id, callback) => {
-    models.similar_items_by_views.findOneAndDelete({id: id}, (err, results) => {
-      if (err) {
-        console.log(`Error deleting id ${id}: ${err}`);
-      } else {
-        callback(null, results);
-      }
-    });
-  }
-);
+// const deleteRecord = Promise.promisify(
+  // (id, callback) => {
+  //   models.similar_items_by_views.findOneAndDelete({id: id}, (err, results) => {
+  //     if (err) {
+  //       console.log(`Error deleting id ${id}: ${err}`);
+  //     } else {
+  //       callback(null, results);
+  //     }
+  //   });
+  // }
+// );
 
 module.exports = getSimilarItemsByViews;
-// module.exports = createRecord;
+module.exports = createRecord;
 // module.exports = updateRecord;
-module.exports = deleteRecord;
+// module.exports = deleteRecord;
