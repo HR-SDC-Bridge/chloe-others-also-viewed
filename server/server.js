@@ -4,10 +4,7 @@ const app = express();
 const morgan = require('morgan');
 const cors = require('cors');
 const db = require('./database/database.js');
-const getSimilarItemsByViews = require('./database/methods.js');
-const createRecord = require('./database/methods.js');
-// const updateRecord = require('./database/methods.js');
-const deleteRecord = require('./database/methods.js');
+const dbMethods = require('./database/methods.js');
 const path = require('path');
 const bodyParser = require('body-parser');
 
@@ -22,7 +19,7 @@ app.get('/:id', (req, res) => {
 });
 
 app.get('/similar-products-by-views/:id', (req, res) => {
-  getSimilarItemsByViews(req.params.id)
+  dbMethods.getSimilarItemsByViews(req.params.id)
     .then((result) => {
       res.send(result);
     })
@@ -32,7 +29,7 @@ app.get('/similar-products-by-views/:id', (req, res) => {
 });
 
 app.post('/similar-products-by-views', (req, res) => {
-  createRecord(req.body.similar_items)
+  dbMethods.createSimilarItems(req.body.similar_items)
     .then((httpStatus) => {
       res.sendStatus(200);
     })
@@ -52,8 +49,8 @@ app.post('/similar-products-by-views', (req, res) => {
 //     });
 // });
 
-app.delete('/similar-products-by-views/delete/:id', (req, res) => {
-  deleteRecord(req.params.id)
+app.delete('/similar-products-by-views/:id', (req, res) => {
+  dbMethods.deleteSimilarItems(req.params.id)
     .then((result) => {
       res.sendStatus(204);
     })

@@ -15,17 +15,17 @@ const getSimilarItemsByViews = Promise.promisify(
   }
 );
 
-const createRecord = Promise.promisify(
+const createSimilarItems = Promise.promisify(
   (query, callback) => {
     models.similar_items_by_views.find({}).sort({id: -1}).limit(1)
       .then((res) => {
         let newID = res[0].id + 1;
         models.similar_items_by_views.create({id: newID, similar_items: query});
-        return callback(null, res);
+        callback(null, res);
       })
       .catch((err) => {
         console.log(`Error finding maximum id: ${err}`);
-        return callback(err);
+        callback(err);
       });
   }
 );
@@ -37,9 +37,9 @@ const createRecord = Promise.promisify(
 //     });
 // };
 
-const deleteRecord = Promise.promisify(
+const deleteSimilarItems = Promise.promisify(
   (id, callback) => {
-    models.similar_items_by_views.findOneAndDelete({id: id}, (err, results) => {
+    models.similar_items_by_views.deleteOne({id: id}, (err, results) => {
       if (err) {
         console.log(`Error deleting id ${id}: ${err}`);
       } else {
@@ -49,7 +49,7 @@ const deleteRecord = Promise.promisify(
   }
 );
 
-module.exports = getSimilarItemsByViews;
-module.exports = createRecord;
+module.exports.getSimilarItemsByViews = getSimilarItemsByViews;
+module.exports.createSimilarItems = createSimilarItems;
 // module.exports = updateRecord;
-module.exports = deleteRecord;
+module.exports.deleteSimilarItems = deleteSimilarItems;
