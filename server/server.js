@@ -39,15 +39,16 @@ app.post('/similar-products-by-views', (req, res) => {
     });
 });
 
-// app.put('/similar-products-by-views/:id/:data', (req, res) => {
-//   updateRecord(req.params.id, req.params.data)
-//     .then((result) => {
-//       res.send('Success');
-//     })
-//     .catch((err) => {
-//       console.log('Error calling updateRecord: ', err);
-//     });
-// });
+app.put('/similar-products-by-views/:id', (req, res) => {
+  dbMethods.updateSimilarItem(req.params.id, req.body.similarItems)
+    .then((result) => {
+      res.sendStatus(200);
+    })
+    .catch((err) => {
+      console.log('Error calling updateRecord: ', err);
+      res.sendStatus(500);
+    });
+});
 
 app.delete('/similar-products-by-views/:id', (req, res) => {
   dbMethods.deleteSimilarItems(req.params.id)

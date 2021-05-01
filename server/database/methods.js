@@ -30,12 +30,18 @@ const createSimilarItems = Promise.promisify(
   }
 );
 
-// const updateRecord = (id, data) => {
-//   models.similar_items_by_views.findOneAndUpdate({id: id}, {$set: { similar_items: data}})
-//     .catch((err) => {
-//       console.log(`Error updating record for id = ${id}: ${err}`);
-//     });
-// };
+const updateSimilarItem = Promise.promisify(
+  (id, data, callback) => {
+    models.similar_items_by_views.updateOne({id: id}, {$set: { similar_items: data}})
+      .then((res) => {
+        callback(null, res);
+      })
+      .catch((err) => {
+        console.log(`Error updating record for id ${query}: ${err}`);
+        callback(err);
+      });
+  }
+);
 
 const deleteSimilarItems = Promise.promisify(
   (id, callback) => {
@@ -51,5 +57,5 @@ const deleteSimilarItems = Promise.promisify(
 
 module.exports.getSimilarItemsByViews = getSimilarItemsByViews;
 module.exports.createSimilarItems = createSimilarItems;
-// module.exports = updateRecord;
+module.exports.updateSimilarItem = updateSimilarItem;
 module.exports.deleteSimilarItems = deleteSimilarItems;
