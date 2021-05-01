@@ -7,7 +7,7 @@ const db = require('./database/database.js');
 const getSimilarItemsByViews = require('./database/methods.js');
 const createRecord = require('./database/methods.js');
 // const updateRecord = require('./database/methods.js');
-// const deleteRecord = require('./database/methods.js');
+const deleteRecord = require('./database/methods.js');
 const path = require('path');
 const bodyParser = require('body-parser');
 
@@ -52,15 +52,15 @@ app.post('/similar-products-by-views', (req, res) => {
 //     });
 // });
 
-// app.delete('/similar-products-by-views/delete/:id', (req, res) => {
-//   deleteRecord(req.params.id)
-//     .then((result) => {
-//       res.sendStatus(204);
-//     })
-//     .catch((err) => {
-//       console.log('Error calling deleteRecord: ', err);
-//     });
-// });
+app.delete('/similar-products-by-views/delete/:id', (req, res) => {
+  deleteRecord(req.params.id)
+    .then((result) => {
+      res.sendStatus(204);
+    })
+    .catch((err) => {
+      console.log('Error calling deleteRecord: ', err);
+    });
+});
 
 
 module.exports = app;
