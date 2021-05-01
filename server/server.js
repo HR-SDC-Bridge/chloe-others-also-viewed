@@ -5,8 +5,8 @@ const morgan = require('morgan');
 const cors = require('cors');
 const db = require('./database/database.js');
 const getSimilarItemsByViews = require('./database/methods.js');
-const createRecord = require('./database/methods.js');
-const updateRecord = require('./database/methods.js');
+// const createRecord = require('./database/methods.js');
+// const updateRecord = require('./database/methods.js');
 const deleteRecord = require('./database/methods.js');
 const path = require('path');
 
@@ -19,6 +19,7 @@ app.get('/:id', (req, res) => {
 });
 
 app.get('/similar-products-by-views/:id', (req, res) => {
+  console.log('req.params.id: ', req.params.id)
   getSimilarItemsByViews(req.params.id)
     .then((result) => {
       res.send(result);
@@ -26,30 +27,30 @@ app.get('/similar-products-by-views/:id', (req, res) => {
     .catch((err) => console.error('Unable to get similar items by views: ', err));
 });
 
-app.post('/similar-products-by-views/:data', (req, res) => {
-  createRecord(req.params.data)
-    .then((result) => {
-      res.send('Success');
-    })
-    .catch((err) => {
-      console.log('Error calling createRecord: ', err);
-    });
-});
+// app.post('/similar-products-by-views/:data', (req, res) => {
+//   createRecord(req.params.data)
+    // .then((result) => {
+    //   res.send('Success');
+    // })
+    // .catch((err) => {
+    //   console.log('Error calling createRecord: ', err);
+    // });
+// });
 
-app.put('/similar-products-by-views/:id/:data', (req, res) => {
-  updateRecord(req.params.id, req.params.data)
-    .then((result) => {
-      res.send('Success');
-    })
-    .catch((err) => {
-      console.log('Error calling updateRecord: ', err);
-    });
-});
+// app.put('/similar-products-by-views/:id/:data', (req, res) => {
+//   updateRecord(req.params.id, req.params.data)
+//     .then((result) => {
+//       res.send('Success');
+//     })
+//     .catch((err) => {
+//       console.log('Error calling updateRecord: ', err);
+//     });
+// });
 
 app.delete('/similar-products-by-views/:id', (req, res) => {
   deleteRecord(req.params.id)
     .then((result) => {
-      res.send('Success');
+      res.sendStatus(204);
     })
     .catch((err) => {
       console.log('Error calling deleteRecord: ', err);
