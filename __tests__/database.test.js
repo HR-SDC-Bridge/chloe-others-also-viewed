@@ -2,7 +2,7 @@ require('dotenv').config();
 const mongoose = require('mongoose');
 const models = require('../server/database/models.js');
 const similar_items_by_views = models.similar_items_by_views;
-const getSimilarItemsByViews = require('../server/database/methods.js');
+const dbMethods = require('../server/database/methods.js');
 const seed = require('../server/database/seed_methods.js');
 
 beforeAll(async (done) => {
@@ -45,7 +45,7 @@ describe('Seeding script', () => {
 
 describe('Database methods', () => {
   test('Method gets similar items by views for one item', async () => {
-    getSimilarItemsByViews(1)
+    dbMethods.getSimilarItemsByViews(1)
       .then((data) => {
         expect(data.length).not.toEqual(0);
       })
@@ -53,7 +53,7 @@ describe('Database methods', () => {
   });
 
   test('If no item is found, give proper response', async () => {
-    getSimilarItemsByViews(999)
+    dbMethods.getSimilarItemsByViews(999)
       .then((data) => {
         expect(data).toEqual('No similar items by views found.');
       })
