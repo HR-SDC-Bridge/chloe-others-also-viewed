@@ -17,4 +17,25 @@ const seed = async () => {
   });
 };
 
-seed();
+// seed();
+
+const seedNew = async (numRecords) => {
+  await similar_items_by_views.deleteMany({}, (err, results) => {
+    if (err) return console.error('Unable to delete the collection similar_items_by_views: ', err);
+    console.log('Collection similar_items_by_views has been cleared.')
+  });
+
+  let data = [];
+  let chunk = numRecords/100 ? numRecords/100 : numRecords;
+
+  for (var i = 1; i <= numRecords; i++) {
+    data.push(generateSeedData(i, numRecords));
+
+    if (data.length === chunk) {
+      await similar_items_by_views.insertMany(data);
+      data = [];
+    }
+  }
+}
+
+seedNew(10000000);
