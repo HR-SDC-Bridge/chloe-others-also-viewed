@@ -36,6 +36,7 @@
   "scripts": {
     "build": "webpack --watch",
     "seed": "node ./server/database/seed.js",
+    "seedPG": "node ./server/database/seedPostgres.js",
     "start": "nodemon ./server/app.js",
     "test": "jest --no-cache -u --collect-coverage"
   },
@@ -53,6 +54,7 @@
     "lodash": "^4.17.21",
     "mongoose": "^5.12.3",
     "nodemon": "^2.0.7",
+    "pg": "^8.6.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "styled-components": "^5.2.3"
