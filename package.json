@@ -37,6 +37,7 @@
     "build": "webpack --watch",
     "seed": "node ./server/database/seed.js",
     "seedPG": "node ./server/database/seedPostgres.js",
+    "seedCass": "node ./server/database/seedCassandra.js",
     "start": "nodemon ./server/app.js",
     "test": "jest --no-cache -u --collect-coverage"
   },
@@ -48,6 +49,7 @@
     "axios": "^0.21.1",
     "bluebird": "^3.7.2",
     "body-parser": "^1.19.0",
+    "cassandra-driver": "^4.6.2",
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",

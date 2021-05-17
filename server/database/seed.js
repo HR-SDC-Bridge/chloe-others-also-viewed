@@ -26,10 +26,10 @@ const seedNew = async (numRecords) => {
   });
 
   let data = [];
-  let chunk = numRecords/100 ? numRecords/100 : numRecords;
+  let chunk = numRecords/100 > 1 ? numRecords/100 : numRecords;
 
   for (var i = 1; i <= numRecords; i++) {
-    data.push(generateSeedData(i, numRecords));
+    data.push(generateSeedData(i, numRecords, false, false));
 
     if (data.length === chunk) {
       await similar_items_by_views.insertMany(data);
