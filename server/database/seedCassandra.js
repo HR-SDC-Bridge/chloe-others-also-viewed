@@ -42,7 +42,6 @@ const timeSeedingCass = async (num) => {
   console.time(`Time it takes to seed ${num} records in Cassandra`);
   await seedCass(num);
   console.timeEnd(`Time it takes to seed ${num} records in Cassandra`);
-
 };
 
 timeSeedingCass(10000000);

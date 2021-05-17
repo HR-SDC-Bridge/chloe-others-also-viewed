@@ -27,6 +27,14 @@ const connect = async () => {
       ) WITH comment='Products and their similar items';`;
 
       await client.execute(query)
+        .then(async () => {
+          query = `CREATE INDEX sdcIndex ON ${process.env.CASSTABLE} (productid);`;
+
+          await client.execute(query)
+            .catch((err) => {
+              console.log(`Error creating index on ${process.env.CASSTABLE}: ${err}`);
+            })
+        })
         .catch((err) => {
           console.log( `Error creating table ${process.env.CASSTABLE}`);
         });
