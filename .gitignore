@@ -31,3 +31,4 @@ bundle.js
 *.sh
 *.cer
 *.pem
+newrelic.js
