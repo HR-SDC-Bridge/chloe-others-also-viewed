@@ -30,7 +30,7 @@ const connectClient = async () => {
           .query('CREATE TABLE IF NOT EXISTS prod_x_similar (relationid SERIAL PRIMARY KEY, productid INTEGER, similarid INTEGER);')
           .then(async () => {
             await client
-              .query('CREATE INDEX pxs_index ON prod_x_similar (productid);')
+              .query('CREATE INDEX IF NOT EXISTS pxs_index ON prod_x_similar (productid);')
               .catch((err) => {
                 console.log('Error creating index on prod_x_similar: ', err);
               })

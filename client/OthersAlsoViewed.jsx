@@ -26,7 +26,9 @@ class OthersAlsoViewed extends React.Component {
     let pages = newState.pages = {};
     const id = window.location.href.split('/')[3];
     const response = await axios.get(`/similar-products-by-views/${id}`);
-    const data = response.data[0].similar_items;
+    // C.Tan 6/3/2021: With the refactor to Postgres, the response returned from the server now provides the similar items as an array without a similar_items property to reference so updating how data variable is set.
+    // const data = response.data[0].similar_items;
+    const data = response.data;
     newState.page = 1;
 
     for (let i = 0, j = 1; i < data.length && i < 16; i++) {

@@ -3,7 +3,6 @@ const express = require('express');
 const app = express();
 const morgan = require('morgan');
 const cors = require('cors');
-const db = require('./database/database.js');
 const dbMethods = require('./database/methods.js');
 const path = require('path');
 const bodyParser = require('body-parser');
@@ -20,45 +19,18 @@ app.get('/:id', (req, res) => {
 
 app.get('/similar-products-by-views/:id', (req, res) => {
   dbMethods.getSimilarItemsByViews(req.params.id)
-    .then((result) => {
-      res.send(result);
+    .then((items) => {
+      let data = [];
+
+      for (let i = 0; i < items.length; i++) {
+        data.push(items[i].similarid);
+      }
+
+      res.send(data);
     })
     .catch((err) => {
-      console.error('Unable to get similar items by views: ', err);
+      console.error(`Unable to get similar items by views: ${err}`);
     });
 });
-
-app.post('/similar-products-by-views', (req, res) => {
-  dbMethods.createSimilarItems(req.body.similar_items)
-    .then((httpStatus) => {
-      res.sendStatus(200);
-    })
-    .catch((err) => {
-      console.log(`Error creating record: ${err}`);
-      res.sendStatus(500);
-    });
-});
-
-app.put('/similar-products-by-views/:id', (req, res) => {
-  dbMethods.updateSimilarItem(req.params.id, req.body.similarItems)
-    .then((result) => {
-      res.sendStatus(200);
-    })
-    .catch((err) => {
-      console.log('Error calling updateRecord: ', err);
-      res.sendStatus(500);
-    });
-});
-
-app.delete('/similar-products-by-views/:id', (req, res) => {
-  dbMethods.deleteSimilarItems(req.params.id)
-    .then((result) => {
-      res.sendStatus(204);
-    })
-    .catch((err) => {
-      console.log('Error calling deleteRecord: ', err);
-    });
-});
-
 
 module.exports = app;
