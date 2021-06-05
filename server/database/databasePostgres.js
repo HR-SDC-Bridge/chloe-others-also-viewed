@@ -45,7 +45,7 @@ const connectClient = async () => {
   })
   .catch((err) => {
     console.log('Error connecting to Postgres db: ', err);
-  });
+  })
 };
 
 client.connectClient = connectClient;

@@ -29,6 +29,7 @@ class OthersAlsoViewed extends React.Component {
     // C.Tan 6/3/2021: With the refactor to Postgres, the response returned from the server now provides the similar items as an array without a similar_items property to reference so updating how data variable is set.
     // const data = response.data[0].similar_items;
     const data = response.data;
+    console.log('id: ', )
     newState.page = 1;
 
     for (let i = 0, j = 1; i < data.length && i < 16; i++) {

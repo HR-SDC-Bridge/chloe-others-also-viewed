@@ -6,12 +6,11 @@ const getSimilarItemsByViews = async (id) => {
     .connectClient()
     .then(() => {
       return client
-        .query(`SELECT * FROM ${process.env.PGTABLE} WHERE productid = 1;`)
+        .query(`SELECT * FROM ${process.env.PGTABLE} WHERE productid = ${id};`)
         .then((res) => {
           return res.rows;
         })
     })
-
   return data;
 };
 

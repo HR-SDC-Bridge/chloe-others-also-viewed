@@ -39,7 +39,8 @@
     "seedPG": "node ./server/database/seedPostgres.js",
     "seedCass": "node ./server/database/seedCassandra.js",
     "start": "nodemon ./server/app.js",
-    "test": "jest --no-cache -u --collect-coverage"
+    "test": "jest --no-cache -u --collect-coverage",
+    "stressTest": "k6 run k6script.js"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.35",
