@@ -26,19 +26,23 @@ function Card(props) {
       }
   }
 
-  let cents = ((data?.price) - Math.floor(data?.price)) !== 0
-    ? ((data?.price) - Math.floor(data?.price)) * 10
-    : '00';
+  //C.Tan: Before deployment, cannot call other services to get product info so just putting dummy data for now.
+  // let cents = ((data?.price) - Math.floor(data?.price)) !== 0
+  //   ? ((data?.price) - Math.floor(data?.price)) * 10
+  //   : '00';
+  let cents = '00';
 
   return (
     <Container key={`card-${id}`}>
       <Heart><FontAwesomeIcon icon={["far", "heart"]} size="1x"/></Heart>
       {data?.image ? <Image src={data?.image} /> : ''}
-      <Brand>{data?.brand || 'Brand Name'}</Brand>
-      <Name>{`${data?.category}, ${data?.title}` || 'Name'}</Name>
+      <Brand>{data?.brand || `Brand Name for Product ID ${props.id.toString()}`}</Brand>
+      <Name>{`${data?.category ? data?.category.concat(', ', data?.title) : 'Name for Product ID '.concat(props.id.toString())}`}</Name>
       <Price>
         <Superscript>$</Superscript>
-        <Dollar>{Math.trunc(data?.price)}.</Dollar>
+        {/* C.Tan: Before deployment, cannot call other services to get product info so just putting dummy data for now.}
+        <Dollar>{Math.trunc(data?.price)}.</Dollar>*/}
+        <Dollar>{'00.'}</Dollar>
         <Superscript>{cents}</Superscript>
       </Price>
       <Reviews>

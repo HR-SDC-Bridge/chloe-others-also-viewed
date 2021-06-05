@@ -57,7 +57,9 @@ class OthersAlsoViewed extends React.Component {
 
     const aboutPromiseChain = await data.map(async (itemID) => {
       try {
-        const response = await axios.get(`http://ec2-3-86-58-21.compute-1.amazonaws.com:3003/api/product/${itemID}`);
+        //C.Tan: Removing calls to other services while performance/stress testing just the 'others also viewed' service.
+        // const response = await axios.get(`http://ec2-3-86-58-21.compute-1.amazonaws.com:3003/api/product/${itemID}`);
+        const response = {data: []};
         const data = response.data;
         let prep;
         if (data) {
@@ -81,7 +83,9 @@ class OthersAlsoViewed extends React.Component {
 
     const imagesPromiseChain = await data.map(async (itemID) => {
       try {
-        const response = await axios.get(`http://54.67.28.46:3004/images/sizeService/${itemID}`);
+        //C.Tan: Removing calls to other services while performance/stress testing just the 'others also viewed' service.
+        const response = {data: []};
+        // const response = await axios.get(`http://54.67.28.46:3004/images/sizeService/${itemID}`);
         const data = response.data[0];
         let prep = {
           _id: itemID,
@@ -97,12 +101,16 @@ class OthersAlsoViewed extends React.Component {
     });
 
     const dataCSV = data.join(',');
-    const reviewsAPICall = await axios.get(`http://100.25.191.161/api/reviews/${dataCSV}`);
+    //C.Tan: Removing calls to other services while performance/stress testing just the 'others also viewed' service.
+    const reviewsAPICall = {data: []};
+    // const reviewsAPICall = await axios.get(`http://100.25.191.161/api/reviews/${dataCSV}`);
     const reviewsPromiseChain = reviewsAPICall.data;
 
     const sizeDataPromiseChain = await data.map(async (itemID) => {
       try {
-        const response = await axios.get(`http://18.221.34.3:3002/api/sizes/${itemID}`);
+        //C.Tan: Removing calls to other services while performance/stress testing just the 'others also viewed' service.
+        const response = {data: []};
+        // const response = await axios.get(`http://18.221.34.3:3002/api/sizes/${itemID}`);
         const data = response.data;
         let prep = {
           _id: data.id,
@@ -118,14 +126,15 @@ class OthersAlsoViewed extends React.Component {
       }
     });
 
-    const about = await Promise.all(aboutPromiseChain);
-    const images = await Promise.all(imagesPromiseChain);
-    const reviews = await Promise.all(reviewsPromiseChain);
-    const sizeData = await Promise.all(sizeDataPromiseChain);
+    //C.Tan: Removing calls to other services while performance/stress testing just the 'others also viewed' service.
+    // const about = await Promise.all(aboutPromiseChain);
+    // const images = await Promise.all(imagesPromiseChain);
+    // const reviews = await Promise.all(reviewsPromiseChain);
+    // const sizeData = await Promise.all(sizeDataPromiseChain);
 
-    for (const api of [about, images, reviews, sizeData]) {
-      mapToAllItems(api, allItems);
-    }
+    // for (const api of [about, images, reviews, sizeData]) {
+    //   mapToAllItems(api, allItems);
+    // }
 
     this.setState(newState);
   }
