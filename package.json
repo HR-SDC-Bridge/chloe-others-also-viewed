@@ -40,7 +40,9 @@
     "seedCass": "node ./server/database/seedCassandra.js",
     "start": "nodemon ./server/app.js",
     "test": "jest --no-cache -u --collect-coverage",
-    "stressTest": "k6 run k6script.js"
+    "stressTestGET": "k6 run k6scriptGET.js",
+    "stressTestPOST": "k6 run k6scriptPOST.js",
+    "testPOST": "node ./server/database/methods.js"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.35",

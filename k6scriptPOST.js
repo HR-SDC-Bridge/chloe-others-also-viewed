@@ -1,0 +1,30 @@
+import http from 'k6/http';
+import { sleep } from 'k6';
+export let options = {
+  scenarios: {
+    constant_request_rate: {
+      executor: 'constant-arrival-rate',
+      rate: 1000,
+      timeUnit: '1s',
+      duration: '30s',
+      preAllocatedVUs: 100,
+      maxVUs: 200,
+    },
+  },
+};
+
+export default function () {
+  let url = 'http://localhost:5500/similar-products-by-views';
+  let payload = JSON.stringify({
+    id: 10000001,
+    relatedIDs: [1, 2, 3],
+  });
+
+  let params = {
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  };
+
+  http.post(url, payload, params);
+}

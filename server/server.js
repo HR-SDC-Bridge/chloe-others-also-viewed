@@ -34,4 +34,18 @@ app.get('/similar-products-by-views/:id', (req, res) => {
     });
 });
 
+app.post('/similar-products-by-views/:similarItems', (req, res) => {
+  let items = req.params.similarItems.split(',');
+
+  dbMethods.postSimilarItems(items)
+    .then((result) => {
+      res.sendStatus(201);
+    })
+    .catch((err) => {
+      console.error(`Unable to post similar items: ${err}`);
+    });
+});
+
 module.exports = app;
+
+
