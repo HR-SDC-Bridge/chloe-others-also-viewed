@@ -14,17 +14,7 @@ export let options = {
 };
 
 export default function () {
-  let url = 'http://localhost:5500/similar-products-by-views';
-  let payload = JSON.stringify({
-    id: 10000001,
-    relatedIDs: [1, 2, 3],
-  });
+  let url = 'http://localhost:5500/similar-products-by-views/1,2,3';
 
-  let params = {
-    headers: {
-      'Content-Type': 'application/json',
-    },
-  };
-
-  http.post(url, payload, params);
+  http.post(url);
 }
