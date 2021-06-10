@@ -3,7 +3,7 @@ const client = db.client;
 
 const getSimilarItemsByViews = async (id) => {
   let data = await client
-    .connectClient()
+    .connect()
     .then(() => {
       return client
         .query(`SELECT * FROM ${process.env.PGTABLE} WHERE productid = ${id};`)
@@ -16,7 +16,7 @@ const getSimilarItemsByViews = async (id) => {
 
 const postSimilarItems = async (similarItems) => {
   let newProductID = await client
-    .connectClient()
+    .connect
     .then(() => {
       return client
         .query(`SELECT MAX(productid) FROM prod_x_similar;`)
@@ -29,7 +29,7 @@ const postSimilarItems = async (similarItems) => {
     });
 
   await client
-  .connectClient()
+  .connect
   .then(async () => {
     let insertData = '';
     for (let i = 0; i < similarItems.length; i++) {

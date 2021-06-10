@@ -1,25 +1,27 @@
 require('dotenv').config();
-const { Client } = require('pg');
+const { Client, Pool } = require('pg');
 
-const client = new Client({
+const pool = new Pool({
   user: process.env.PGUSER,
   host: process.env.PGHOST,
   database: process.env.PGDATABASE,
   port: process.env.PGPORT,
 });
 
-const connectClient = async () => {
-  await client
+pool
   .connect()
-  .then(async (message) => {
+  .then((client) => {
     console.log(`Connected to Postgres db on port ${process.env.PGPORT}`);
 
-    await client
+    return client
       .query(`SELECT EXISTS(SELECT 1 FROM pg_database WHERE datname = '${process.env.PGDATABASE}');`)
       .then(async (result) => {
         if(!result.rows[0].exists) {
           await client
             .query(`CREATE DATABASE ${process.env.PGDATABASE};`)
+            .then((res) => {
+              client.release();
+            })
             .catch((err) => {
               console.log(`Error creating database ${process.env.PGDATABASE}`);
             })
@@ -31,6 +33,9 @@ const connectClient = async () => {
           .then(async () => {
             await client
               .query('CREATE INDEX IF NOT EXISTS pxs_index ON prod_x_similar (productid);')
+              .then((res) => {
+                client.release();
+              })
               .catch((err) => {
                 console.log('Error creating index on prod_x_similar: ', err);
               })
@@ -43,11 +48,5 @@ const connectClient = async () => {
         console.log(`Error querying for database existence: ${err}`);
       })
   })
-  .catch((err) => {
-    console.log('Error connecting to Postgres db: ', err);
-  })
-};
 
-client.connectClient = connectClient;
-
-module.exports.client = client;
+module.exports.client = pool;
