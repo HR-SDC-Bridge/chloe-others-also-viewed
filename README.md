@@ -42,3 +42,7 @@ From within the root directory:
 ```sh
 npm install
 ```
+
+
+# ubuntu server - how to start postgres
+/usr/lib/postgresql/10/bin/pg_ctl -D /var/lib/postgresql/10/main -l logfile start

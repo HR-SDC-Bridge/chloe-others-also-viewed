@@ -10,7 +10,7 @@ const seedPG = async (numRecords) => {
   let productRelationsID = 1;
   let chunk = numRecords/100 > 1 ? numRecords/100 : numRecords;
 
-  await client.connectClient();
+  await client.connect();
   await client
           .query(`TRUNCATE prod_x_similar;`)
           .catch((err) => {
