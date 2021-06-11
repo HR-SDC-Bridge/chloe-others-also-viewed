@@ -42,7 +42,8 @@
     "test": "jest --no-cache -u --collect-coverage",
     "stressTestGET": "k6 run k6scriptGET.js",
     "stressTestPOST": "k6 run k6scriptPOST.js",
-    "testPOST": "node ./server/database/methods.js"
+    "testPOST": "node ./server/database/methods.js",
+    "sshDatabase": "ssh ikea-db"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.35",
