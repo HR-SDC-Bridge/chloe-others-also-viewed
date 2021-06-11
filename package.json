@@ -43,7 +43,8 @@
     "stressTestGET": "k6 run k6scriptGET.js",
     "stressTestPOST": "k6 run k6scriptPOST.js",
     "testPOST": "node ./server/database/methods.js",
-    "sshDatabase": "ssh ikea-db"
+    "sshDatabase": "ssh ikea-db",
+    "sshService": "ssh ikea-related"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.35",

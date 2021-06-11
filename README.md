@@ -46,3 +46,10 @@ npm install
 
 # ubuntu server - how to start postgres
 /usr/lib/postgresql/10/bin/pg_ctl -D /var/lib/postgresql/10/main -l logfile start
+
+# SSH-ing into EC2 instances
+## How to view the SSH config file
+This file defines the info needed to connect to each EC2 instance host. If the host name changes (after stopping and starting the EC2 instance, then you need to update this config file with the correct hostname for the currently running instance).
+```sh
+vim ~/.ssh/config
+```
