@@ -16,7 +16,7 @@ const getSimilarItemsByViews = async (id) => {
 
 const postSimilarItems = async (similarItems) => {
   let newProductID = await client
-    .connect
+    .connect()
     .then(() => {
       return client
         .query(`SELECT MAX(productid) FROM prod_x_similar;`)
@@ -29,7 +29,7 @@ const postSimilarItems = async (similarItems) => {
     });
 
   await client
-  .connect
+  .connect()
   .then(async () => {
     let insertData = '';
     for (let i = 0; i < similarItems.length; i++) {
