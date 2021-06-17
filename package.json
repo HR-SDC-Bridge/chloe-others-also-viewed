@@ -46,6 +46,7 @@
     "sshDatabase": "ssh ikea-db",
     "sshService": "ssh ikea-related",
     "sshServiceTwo": "ssh ikea-related-two",
+    "sshServiceThree": "ssh ikea-related-three",
     "sshLB": "ssh ikea-lb"
   },
   "dependencies": {
