@@ -30,7 +30,7 @@ app.get('/similar-products-by-views/:id', (req, res) => {
       res.send(data);
     })
     .catch((err) => {
-      console.error(`Unable to get similar items by views: ${err}`);
+      // console.error(`Unable to get similar items by views: ${err}`);
       res.sendStatus(500);
     });
 });
@@ -43,7 +43,7 @@ app.post('/similar-products-by-views/:similarItems', (req, res) => {
       res.sendStatus(201);
     })
     .catch((err) => {
-      console.error(`Unable to post similar items: ${err}`);
+      // console.error(`Unable to post similar items: ${err}`);
       res.sendStatus(500);
     });
 });
