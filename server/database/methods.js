@@ -10,6 +10,10 @@ const getSimilarItemsByViews = async (id) => {
         .then((res) => {
           return res.rows;
         })
+        .catch((err) => {
+          console.log(`Error retrieving similar items for product: ${err}`);
+          return [];
+        })
     })
   return data;
 };
