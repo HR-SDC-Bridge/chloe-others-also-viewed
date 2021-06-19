@@ -15,6 +15,10 @@ const getSimilarItemsByViews = async (id) => {
           return [];
         })
     })
+    .catch((err) => {
+      console.log(`Error connecting to database in getSimilarItemsByViews: ${err}`);
+      return [];
+    })
   return data;
 };
 
